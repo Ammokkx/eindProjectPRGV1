@@ -1,4 +1,5 @@
 ﻿using ClientSimulatorBL.Domain;
+using ClientSimulatorBL.Domain.DTO;
 using ClientSimulatorBL.Interfaces;
 using ClientSimulatorBL.Managers;
 using System;
@@ -25,6 +26,14 @@ namespace ClientSimulatorBL.SimulationService
       public  void UploadToDatabase(List<SimulatedPerson> data, string country, int year, string client, DateTime date, int seed)
         {
            _simulationrepo.UploadToDatabase(data, country, year, client, date, seed);
+        }
+        public List<SimulationDTO> GetAllSimplifiedSimulations()
+        {
+            return _simulationrepo.GetAllSimplifiedSimulations();
+        }
+        public Simulation GetAllDetails(int id)
+        {
+            return _simulationrepo.GetAllSimDetails(id);
         }
 
     }

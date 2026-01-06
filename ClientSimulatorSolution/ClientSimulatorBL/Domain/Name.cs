@@ -27,7 +27,7 @@ namespace ClientSimulatorBL.Domain
             set
             {
                 if (!string.IsNullOrWhiteSpace(value)) _nameName = value;
-                else throw new DataException("Name empty");
+                else throw new DataReadingException("Name empty");
             }
         }
 

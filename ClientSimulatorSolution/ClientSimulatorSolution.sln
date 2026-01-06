@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientDBSimUtils", "ClientD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "debugger", "debugger\debugger.csproj", "{0CE75622-7CD4-4958-9282-B9F316758FF9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientSimTests", "ClientSimTests\ClientSimTests.csproj", "{4BF85DB9-C22E-4D18-B1A9-0EE569F29833}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{0CE75622-7CD4-4958-9282-B9F316758FF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CE75622-7CD4-4958-9282-B9F316758FF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CE75622-7CD4-4958-9282-B9F316758FF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BF85DB9-C22E-4D18-B1A9-0EE569F29833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4BF85DB9-C22E-4D18-B1A9-0EE569F29833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4BF85DB9-C22E-4D18-B1A9-0EE569F29833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BF85DB9-C22E-4D18-B1A9-0EE569F29833}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

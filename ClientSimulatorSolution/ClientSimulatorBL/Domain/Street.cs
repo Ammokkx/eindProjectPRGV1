@@ -25,7 +25,7 @@ namespace ClientSimulatorBL.Domain
             set
             {
                 if (!string.IsNullOrWhiteSpace(value)) _name = value;
-                else throw new DataException("Name empty");
+                else throw new DataReadingException("Name empty");
             }
         }
 
@@ -52,7 +52,7 @@ namespace ClientSimulatorBL.Domain
                     _municipality = string.Join(" ", toArrange);
 
                 }
-                else throw new DataException("Municipality empty or unknown");
+                else throw new DataReadingException("Municipality empty or unknown");
             }
         }
 

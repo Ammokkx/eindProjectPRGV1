@@ -25,7 +25,7 @@
             <DataGrid.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="New" Click="DataGridSimulationsNew" />
-                    <MenuItem Header="Export" Click="DataGridSimulationsDetails" />
+                    <MenuItem Header="Details" Click="DataGridSimulationsDetails" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

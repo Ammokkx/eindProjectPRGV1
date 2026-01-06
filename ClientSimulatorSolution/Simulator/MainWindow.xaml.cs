@@ -1,4 +1,6 @@
 ﻿using ClientDBSimUtils;
+using ClientSimulatorBL.Domain;
+using ClientSimulatorBL.Domain.DTO;
 using ClientSimulatorBL.Interfaces;
 using ClientSimulatorBL.SimulationService;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +29,7 @@ namespace Simulator
         private IStreetRepository _streetRepository;
         private INameRepository _nameRepository;
         private string _connectionstring;
+        private List<SimulationDTO> sims = new List<SimulationDTO>();
         public MainWindow()
         {
             InitializeComponent();
@@ -43,6 +46,10 @@ namespace Simulator
             _nameRepository = _repositoryFactory.GiveNameRepository(_connectionstring);
 
             _simulationService = new SimulationService(_countryRepository, _nameRepository, _streetRepository, _repositoryFactory.GiveSimulationRepository(_connectionstring));
+
+            sims = _simulationService.GetAllSimplifiedSimulations();
+            DataGridSimulations.ItemsSource = sims;
+
         }
 
         private void DataGridSimulationsNew(object sender, RoutedEventArgs e)
@@ -54,7 +61,11 @@ namespace Simulator
 
         private void DataGridSimulationsDetails(object sender, RoutedEventArgs e)
         {
-
+        if (DataGridSimulations.SelectedItem is SimulationDTO selection) 
+            {
+              SimulationDetailWindow s =  new SimulationDetailWindow(_simulationService.GetAllDetails(selection.ID));
+                s.ShowDialog();
+            }
         }
     }
 }

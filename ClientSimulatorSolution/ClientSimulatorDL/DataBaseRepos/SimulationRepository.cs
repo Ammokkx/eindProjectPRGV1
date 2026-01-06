@@ -1,4 +1,5 @@
 ﻿using ClientSimulatorBL.Domain;
+using ClientSimulatorBL.Domain.DTO;
 using ClientSimulatorBL.Enums;
 using ClientSimulatorBL.Interfaces;
 using Microsoft.Data.SqlClient;
@@ -28,7 +29,7 @@ namespace ClientSimulatorDL.DataBaseRepos
 
             SQLSimulation = "INSERT INTO Simulation (Seed, Date, Client, Country, year) output INSERTED.ID VALUES (@seed, @date, @client, @country, @year)";
             SQLClient = "INSERT INTO Client(Simulation_ID, First_Name, Last_Name, Street, Municipality, Gender, Age, HouseNr) VALUES (@simID, @fname, @lname, @str, @mun, @gender, @age, @housenr)";
-           
+
 
             using (SqlConnection conn = new SqlConnection(_connectionString))
             using (SqlCommand cmdSim = conn.CreateCommand())
@@ -65,8 +66,8 @@ namespace ClientSimulatorDL.DataBaseRepos
 
                     simID = (int)cmdSim.ExecuteScalar();
 
-                        foreach (SimulatedPerson n in data)
-                        {
+                    foreach (SimulatedPerson n in data)
+                    {
                         cmdClient.Parameters["@simID"].Value = simID;
                         cmdClient.Parameters["@fname"].Value = n.Firstname;
                         cmdClient.Parameters["@lname"].Value = n.Lastname;
@@ -76,8 +77,8 @@ namespace ClientSimulatorDL.DataBaseRepos
                         cmdClient.Parameters["@age"].Value = n.BirthDate;
                         cmdClient.Parameters["@housenr"].Value = n.HouseNr;
                         cmdClient.ExecuteNonQuery();
-                        }
-                    
+                    }
+
 
                     tran.Commit();
                 }
@@ -89,9 +90,91 @@ namespace ClientSimulatorDL.DataBaseRepos
             }
 
         }
-        public List<Simulation> GetAllSimulations()
+        public List<SimulationDTO> GetAllSimplifiedSimulations()
         {
+            string SQL = "SELECT ID, Client, Country FROM Simulation";
+            try
+            {
+                List<SimulationDTO> data = new();
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    cmd.CommandText = SQL;
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            data.Add(new((int)reader["ID"], (string)reader["Client"], (string)reader["Country"]));
+                        }
+                    }
+                    return data;
 
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        public Simulation GetAllSimDetails(int id)
+        {
+            string SQLSimulation = "SELECT ID as simID, Date as simDate, Seed as simSeed, Client as simClient, Country as simCountry, year as simYear FROM Simulation where ID = @id";
+            try
+            {
+                Simulation data;
+                List<SimulatedPerson> simulatedPeople = GetSimulatedPeopleByID(id);
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmdSim = conn.CreateCommand())
+                {
+                    conn.Open();
+                    cmdSim.CommandText = SQLSimulation;
+                    cmdSim.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                    cmdSim.Parameters["@id"].Value = id;
+                    using (SqlDataReader reader = cmdSim.ExecuteReader())
+                    {
+                        reader.Read();
+                        data = new Simulation((int)reader["simID"], (DateTime)reader["simDate"], (int)reader["simSeed"], (string)reader["simClient"], (string)reader["simCountry"], (int)reader["simYear"], simulatedPeople);
+
+                    }
+
+                    return data;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
+
+        public List<SimulatedPerson> GetSimulatedPeopleByID(int id)
+        {
+            string SQLPeople = "SELECT pers.First_Name as pFN, pers.Last_Name as pLN, pers.Street as pSTR, pers.Municipality as pMUN, pers.Gender as pGEN, pers.Age as pDATE, pers.HouseNR as pHNUM FROM Simulation as sim join Client as pers on sim.ID = pers.Simulation_ID where sim.ID = @id";
+
+            List<SimulatedPerson> data = new();
+            using (SqlConnection conn = new SqlConnection(_connectionString))
+            using (SqlCommand cmdSim = conn.CreateCommand())
+            {
+                conn.Open();
+                cmdSim.CommandText = SQLPeople;
+                cmdSim.Parameters.Add(new SqlParameter("@id", SqlDbType.Int));
+                cmdSim.Parameters["@id"].Value = id;
+
+                using (SqlDataReader reader = cmdSim.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Street tempstr = new((string)reader["pSTR"], (string)reader["pMUN"]);
+                        data.Add(new((string)reader["pFN"], (string)reader["pLN"], (string)reader["pGEN"], tempstr, (string)reader["pHNUM"], (DateTime)reader["pDATE"]));
+
+                    }
+                }
+                return data;
+            }
         }
     }
 }
