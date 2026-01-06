@@ -1,4 +1,5 @@
-﻿using ClientSimulatorBL.Interfaces;
+﻿using ClientSimulatorBL.Domain;
+using ClientSimulatorBL.Interfaces;
 using ClientSimulatorBL.Managers;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,10 @@ namespace ClientSimulatorBL.SimulationService
             _streetrepo = streetrepo;
             _simulationrepo = simulationrepo;
         }
-
+      public  void UploadToDatabase(List<SimulatedPerson> data, string country, int year, string client, DateTime date, int seed)
+        {
+           _simulationrepo.UploadToDatabase(data, country, year, client, date, seed);
+        }
 
     }
 }

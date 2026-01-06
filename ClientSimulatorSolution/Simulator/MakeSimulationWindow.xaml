@@ -37,11 +37,11 @@
     <TextBlock Grid.Row="0" Grid.Column="2" Text="# of customers" VerticalAlignment="Center" Margin="5"/>
     <TextBox x:Name="TextBoxCustomers" Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="3" Margin="5"/>
 
- <TextBlock Grid.Row="1" Grid.Column="2" Text="Maximum Age:" VerticalAlignment="Center" Margin="5"/>
- <TextBox Grid.Row="1" Grid.Column="3" Margin="5"  Name="TextBoxMaxAge"/>
+ <TextBlock Grid.Row="1" Grid.Column="2" Text="Minimum Age:" VerticalAlignment="Center" Margin="5"/>
+ <TextBox Grid.Row="1" Grid.Column="3" Margin="5"  Name="TextBoxMinAge"/>
 
-        <TextBlock Grid.Row="1" Grid.Column="4" Text="Minumum Age:" VerticalAlignment="Center" Margin="5"/>
-        <TextBox Grid.Row="1" Grid.Column="5" Margin="5" Name="TextBoxMinAge"/>
+        <TextBlock Grid.Row="1" Grid.Column="4" Text="Maximum Age:" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="5" Margin="5" Name="TextBoxMaxAge"/>
 
         <TextBlock Grid.Row="2" Grid.Column="2" Text="Year:" VerticalAlignment="Center" Margin="5"/>
         <TextBox Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3" Margin="5" Name="TextBoxYear"/>

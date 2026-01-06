@@ -51,7 +51,7 @@ namespace ClientSimulatorBL.Managers
                 }
                 else
                 {
-                    Firstname name = _firstnames[_random.Next(_firstnames.Count)];
+                    Firstname name = _firstnames[_random.Next(_firstnames.Count())];
                     firstname = name.NameName;
                     gender = GetGender(name);
                 }
@@ -61,10 +61,10 @@ namespace ClientSimulatorBL.Managers
                 }
                 else
                 {
-                    lastname  = _lastnames[_random.Next(_lastnames.Count)].NameName;
+                    lastname  = _lastnames[_random.Next(_lastnames.Count())].NameName;
                 }
 
-                Street street = _streets[_random.Next(_streets.Count)];
+                Street street = _streets[_random.Next(_streets.Count())];
                 string houseNr = GetHouseNumber(_maxHouseNr, _percentLetters);
                 DateTime birthDate = MakeBirthDate(_minAge, _maxAge);
 
@@ -88,7 +88,7 @@ namespace ClientSimulatorBL.Managers
             foreach (var name in names)
             {
                 frequency -= name.Frequency.Value;
-                if (frequency >= 0)
+                if (frequency <= 0)
                 {
                     return name;
                 }
@@ -100,7 +100,7 @@ namespace ClientSimulatorBL.Managers
             foreach (var name in names)
             {
                 frequency -= name.Frequency.Value;
-                if (frequency >= 0)
+                if (frequency <= 0)
                 {
                     return name;
                 }

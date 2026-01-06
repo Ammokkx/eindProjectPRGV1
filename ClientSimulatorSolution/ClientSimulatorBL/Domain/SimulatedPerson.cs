@@ -14,6 +14,7 @@ namespace ClientSimulatorBL.Domain
         {
             Firstname = firstname;
             Lastname = lastname;
+            Gender = gender;
             Address = address;
             HouseNr = houseNr;
             BirthDate = birthDate;

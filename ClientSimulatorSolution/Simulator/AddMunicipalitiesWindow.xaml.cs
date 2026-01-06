@@ -1,5 +1,7 @@
-﻿using ClientSimulatorBL.Interfaces;
+﻿using ClientSimulatorBL.Domain;
+using ClientSimulatorBL.Interfaces;
 using ClientSimulatorDL.DataBaseRepos;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,13 +27,15 @@ namespace Simulator
         private IStreetRepository _streetrepo {  get; set; }
         private ObservableCollection<string> _allmunicipalities;
         private ObservableCollection<string> _currentmunicipalities;
+        private ObservableCollection<Street> _streets;
 
-        public AddMunicipalitiesWindow(IStreetRepository street, ObservableCollection<string> currentMuni, int id, int year)
+        public AddMunicipalitiesWindow(IStreetRepository street, ObservableCollection<string> currentMuni, ObservableCollection<Street> streets, int id, int year)
         {
             InitializeComponent();
             _streetrepo = street;
             _currentmunicipalities = currentMuni;
             _allmunicipalities = new ObservableCollection<string>(_streetrepo.GetAllMunicipalitiesByCountryIDAndYear(id, year));
+            _streets = streets;
             ListBoxAllMunicipalities.ItemsSource = _allmunicipalities;
             ListBoxSelectedMunicipalities.ItemsSource = _currentmunicipalities;
         }
@@ -39,6 +43,20 @@ namespace Simulator
 
         private void ButtonClose_Click(object sender, RoutedEventArgs e)
         {
+            if (!_currentmunicipalities.IsNullOrEmpty()) 
+            {
+                _streets.Clear();
+                List <string> sr = new();
+                foreach(string street in _currentmunicipalities) 
+                { 
+                    sr.Add(street); 
+                }
+               ObservableCollection<Street> toAdd = new ObservableCollection<Street>(_streetrepo.GetAllStreetsByListOfMunicipalities(sr));
+                foreach(Street s in toAdd)
+                {
+                    _streets.Add(s);
+                }
+            }
             this.Close();
         }
 

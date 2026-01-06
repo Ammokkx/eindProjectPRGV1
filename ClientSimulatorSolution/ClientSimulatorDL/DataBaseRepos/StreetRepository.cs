@@ -120,10 +120,43 @@ namespace ClientSimulatorDL.DataBaseRepos
                 return null;
             }
         }
+        public List<Street> GetAllStreetsByListOfMunicipalities(List<string> mun)
+        {
+            string SQL = "SELECT str.Name as Name, m.Name as Municipality FROM Street as str join Municipality as m on str.Municipality_ID = m.ID where m.Name = @mun";
+            try
+            {
+                List<Street> data = new();
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    conn.Open();
+                    cmd.CommandText = SQL;
+                    cmd.Parameters.Add(new SqlParameter("@mun", SqlDbType.NVarChar));
+                    foreach (string s in mun) 
+                    {
+                        cmd.Parameters["@mun"].Value = s;
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                data.Add(new((string)reader["Name"], (string)reader["Municipality"]));
+                            }
+                        }
+                    }
+                    return data;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+
+        }
 
         public List<Street> GetAllStreetsByCountryIDAndYear(int id, int year)
         {
-            string SQL = "SELECT str.Name as Name, str.Municipality as Municipality FROM Street as str join country_year as ctry on str.country_year_id = ctry.id join country as ctr on ctry.country_id = ctr.id where ctr.id = @id and ctry.Year_Uploaded = @year";
+            string SQL = "SELECT str.Name as Name, m.Name as Municipality FROM Street as str join Municipality as m on str.Municipality_ID = m.ID join country_year as ctry on str.country_year_id = ctry.id join country as ctr on ctry.country_id = ctr.id where ctr.id = @id and ctry.Year_Uploaded = @year";
             try
             {
                 List<Street> data = new();

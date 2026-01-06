@@ -11,6 +11,7 @@ namespace ClientSimulatorBL.Interfaces
     {
         List<string> GetAllMunicipalitiesByCountryIDAndYear(int id, int year);
         List<Street> GetAllStreetsByCountryIDAndYear(int id, int year);
+        List<Street> GetAllStreetsByListOfMunicipalities(List<string> mun);
         void UploadToDatabase(List<Street> data, string country, int year);
     }
 }
