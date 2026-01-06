@@ -1,0 +1,48 @@
+﻿<Window x:Class="DataUploaderUI.DataUploaderTxtNames"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataUploaderUI"
+        mc:Ignorable="d"
+        Title="DataUploaderTxtNames" Height="260" Width="450">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Text="Type of name:" Margin="5"/>
+        <CheckBox Grid.Row="0" Grid.Column="1" Content="First Name" Margin="5" Name="CheckboxFirstName" Click="CheckboxFirstName_Click"/>
+        <CheckBox Grid.Row="0" Grid.Column="2" Content="Last Name" Margin="5" Name="CheckboxLastName" Click="CheckboxLastName_Click"/>
+        <TextBlock Grid.Row="1" Grid.Column="0" Text="Gender (optional):" Margin="5"/>
+        <CheckBox Grid.Row="1" Grid.Column="1" Content="Male" Margin="5" Name="CheckboxMale" Click="CheckboxMale_Click"/>
+        <CheckBox Grid.Row="1" Grid.Column="2" Content="Female" Margin="5" Name="CheckboxFemale" Click="CheckboxFemale_Click"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Text="What column are the names on?" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Name="TextBoxColumnName"/>
+        <TextBlock Grid.Row="3" Grid.Column="0" Text="What column is the frequency on? (optional):" Margin="5"/>
+        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Name="TextBoxColumnFrequency"/>
+        <TextBlock Grid.Row="4" Grid.Column="0" Text="Lines to skip until data:" Margin="5"/>
+        <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Name="TextBoxLinesToSkip"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="0" Text="What is the separator?" Margin="5"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Margin="5" Name="TextBoxSeparator"/>
+
+        <TextBlock Grid.Row="6" Grid.Column="0" Text="What year is the data from?" Margin="5"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Margin="5" Name="TextBoxYear"/>
+
+        <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Content="Upload" Margin="5" Name="ButtonUpload" Click="ButtonUpload_Click"/>
+    </Grid>
+</Window>

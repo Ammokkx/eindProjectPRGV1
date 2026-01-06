@@ -1,0 +1,19 @@
+﻿<Window x:Class="DataUploaderUI.DataUploaderTxt"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DataUploaderUI"
+        mc:Ignorable="d"
+        Title="DataUploaderTxt" Height="110" Width="200">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Name="ButtonUploadNames" Content="Upload Names" Margin="5" Click="ButtonUploadNames_Click"/>
+        <Button Grid.Row="1" Name="ButtonUploadStreets" Content="Upload Streets" Margin="5" Click="ButtonUploadStreets_Click"/>
+    </Grid>
+    
+</Window>
